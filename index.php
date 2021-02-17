@@ -53,7 +53,7 @@ $dvejetuSuma = 0;
 $trejetuSuma = 0;
 $ketvirtujuSuma = 0;
 
-foreach($masyvas as $isorinisKey => $vidinisMasyvas){
+foreach($masyvas as $vidinisMasyvas){
     foreach($vidinisMasyvas as $key => &$value){
         switch($key){
             case 0:
@@ -177,8 +177,51 @@ usort($idMasyvas, function($a, $b){
 echo '<br><h1> . . .SiapTYNI . . . </h1><br>';
 // Prie 6 uždavinio masyvo antro lygio masyvų pridėkite dar du elementus: name ir surname. Elementus užpildykite stringais iš atsitiktinai sugeneruotų lotyniškų raidžių, kurių ilgiai nuo 5 iki 15.
 
-foreach($masyvas as $key => &$useris){
-    foreach($useris as $keyUs => $value){
-       
+for($i = 0; $i < count($idMasyvas); $i++){
+    $randomVardoIlgis = rand(5, 15);
+    $randomArr = [];
+    for ($j = 0; $j < $randomVardoIlgis; $j++){
+        $randomArr[$j] = chr(rand(65, 90)); 
+    }
+    $vardas = implode('', $randomArr);
+    $idMasyvas[$i]['name'] = $vardas;
+////pavardes
+    $randomPavardesIlgis = rand(5, 15);
+    $randomArr = [];
+    for ($j = 0; $j < $randomPavardesIlgis; $j++){
+        $randomArr[$j] = chr(rand(65, 90)); 
+    }
+    $vardas = implode('', $randomArr);
+    $idMasyvas[$i]['surname'] = $vardas;
+    
+}
+// print_r($idMasyvas); <-------------------------------------------
+
+echo '<br><h1> . . .8 .8. 8. 8.. 8 . . . </h1><br>';
+// Sukurkite masyvą iš 10 elementų. Masyvo reikšmes užpildykite pagal taisyklę: generuokite skaičių nuo 0 iki 5. Ir sukurkite tokio ilgio masyvą. Jeigu reikšmė yra 0 masyvo nekurkite. Antro lygio masyvo reikšmes užpildykite atsitiktiniais skaičiais nuo 0 iki 10. Ten kur masyvo nekūrėte reikšmę nuo 0 iki 10 įrašykite tiesiogiai.
+
+$masyvas = [];
+for($i = 0; $i < 10; $i++){
+    $masyvoIlgis = rand(0, 5);
+    if ($masyvoIlgis === 0){
+        $masyvas[$i] = rand(0, 10);
+    } else {
+        for ($j = 0; $j < $masyvoIlgis; $j++){
+            $masyvas[$i][] = rand(0, 10);
+        }
+    }
+}
+// print_r($masyvas); <-------------------------------------
+
+// Paskaičiuokite 8 uždavinio masyvo visų reikšmių sumą ir išrūšiuokite masyvą taip, kad pirmiausiai eitų mažiausios masyvo reikšmės arba jeigu reikšmė yra masyvas, to masyvo reikšmių sumos.
+
+echo '<br><h1> . . .deVynTaS . . . </h1><br>';
+
+foreach($masyvas as $key => $antroLygioMasyvas){
+    if (is_array($antroLygioMasyvas)){
+        foreach ($antroLygioMasyvas as $key2 => $value){
+            
+        }
+
     }
 }
