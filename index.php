@@ -4,33 +4,32 @@
 
 '<br><br>-------PIRMA UZDUOTIS------------<br><br>';
 echo '<br><h1> PIRMA </h1><br>';
-$masyvas = array_fill(0, 10, array_fill(0, 5, 0));
+// $masyvas = array_fill(0, 10, array_fill(0, 5, 0));
 echo '<pre>';
-print_r($masyvas);
+// print_r($masyvas);
 
-foreach($masyvas as $isorinisKey => $vidinisMasyvas){
-    foreach($vidinisMasyvas as $key => $value){
-        $masyvas[$isorinisKey][$key] = rand(5, 25);
+// $masyvas = [];
+foreach(range(1, 10) as $isorinisKey => $vidinisMasyvas){
+    foreach(range(1, 5) as $key => $value){
+        $masyvas[$isorinisKey][] = rand(5, 25);
     } 
-    unset($value);
 }
-unset($vidinisMasyvas);
 
-print_r($masyvas);
+// print_r($masyvas); <--------------------------------------------------------------
 
 '<br><br>-------ANTRA UZDUOTIS------------<br><br>';
 // A) Suskaičiuokite kiek masyve yra elementų didesnių už 10;
 echo '<br><h1> ANTRO A </h1><br>';
 $didesniuNei10 = 0;
-foreach($masyvas as $isorinisKey => $vidinisMasyvas){
-    foreach($vidinisMasyvas as $key => $value){
-        if($masyvas[$isorinisKey][$key] > 10){
+foreach($masyvas as $vidinisMasyvas){
+    foreach($vidinisMasyvas as $value){
+        if($value > 10){ //sita galima tiesiog pakeisti i $value
             $didesniuNei10++;
         }
     } 
-    unset($value);
+    
 } 
-unset($vidinisMasyvas);
+
 
 echo "didesniu nei desimt elementu yra: $didesniuNei10 <br><br>";
 
@@ -76,7 +75,7 @@ foreach($masyvas as $isorinisKey => $vidinisMasyvas){
     } 
     unset($value);
 } 
-unset($vidinisMasyvas);
+// unset($vidinisMasyvas);  ??
 
 echo "nuliniu indeksu reiksmiu suma yra: $nuliniuSuma, vienetu indeksu reiksmiu suma yra: $vienetuSuma, dvejetu indeksu reiksmiu suma yra: $dvejetuSuma, trejetu indeksu reiksmiu suma yra: $trejetuSuma, ketvertu indeksu reiksmiu suma yra: $ketvirtujuSuma <br><br>";
 
@@ -84,16 +83,69 @@ echo "nuliniu indeksu reiksmiu suma yra: $nuliniuSuma, vienetu indeksu reiksmiu 
 echo '<br><h1> ANTRO D </h1><br>';
 
 foreach($masyvas as &$vidinisMasyvas){
-    array_push($vidinisMasyvas, rand(5, 25), rand(5, 25));
+    $vidinisMasyvas[] = rand(5, 25);
+    $vidinisMasyvas[] = rand(5, 25); /////////////KAP CE PADARYT i viena eiliute??????????
 } 
+
+//PUSH VERSIJA:
+
+// foreach($masyvas as &$vidinisMasyvas){
+//     array_push($vidinisMasyvas, rand(5, 25), rand(5, 25));
+// }  
+
+
 unset($vidinisMasyvas);
-print_r($masyvas);
+// print_r($masyvas); <----------------------------------------------------------------
 
 // E) Suskaičiuokite kiekvieno iš antro lygio masyvų elementų sumą atskirai ir sumas panaudokite kaip reikšmes sukuriant naują masyvą. T.y. pirma naujo masyvo reikšmė turi būti lygi mažesnio masyvo, turinčio indeksą 0 dideliame masyve, visų elementų sumai 
 echo '<br><h1> ANTRO E </h1><br>';
-array_push($masyvas, []);
-foreach($masyvas as $antrojoArrIndex => &$antrojoArrReiksme){
+
+//NESUPRANTU KODEL VEIKIANTIS:
+$masyvas[] = [];
+foreach($masyvas as &$antrojoArrReiksme){
    array_push($masyvas[array_key_last($masyvas)], array_sum($antrojoArrReiksme));
 }
+unset($antrojoArrReiksme);
+// print_r($masyvas); <---------------------------------------------------------------------
 
-print_r($masyvas);
+//NESUPRANTU KODEL NEVEIKIANTIS:
+// foreach($masyvas as &$antrojoArrReiksme){
+//     $masyvas[] = array_sum($antrojoArrReiksme);
+// }
+// unset($antrojoArrReiksme);
+// print_r($masyvas);
+
+//IRGI NEVEIKIANTIS(BE PUSH):
+// $masyvas[] = [];
+// foreach($masyvas as &$antrojoArrReiksme){
+//    $masyvas[array_key_last($masyvas)] = array_sum($antrojoArrReiksme);
+// }
+// unset($antrojoArrReiksme);
+// print_r($masyvas);
+
+
+echo '<br><h1> TRECIAS </h1><br>';
+// Sukurkite masyvą iš 10 elementų. Kiekvienas masyvo elementas turi būti masyvas su atsitiktiniu kiekiu nuo 2 iki 20 elementų. Elementų reikšmės atsitiktinai parinktos raidės iš intervalo A-Z. Išrūšiuokite antro lygio masyvus pagal abėcėlę (t.y. tuos kur su raidėm).
+
+for ($i = 0; $i < 10; $i++){
+    $antrasMasyvas = rand(2, 20);
+    for ($j = 0; $j < $antrasMasyvas; $j++){
+        $raidziuMasyvas[$i][] = chr(rand(65, 90));
+    }
+}
+// print_r($raidziuMasyvas); <-----------------------------------------------------------------
+
+foreach ($raidziuMasyvas as &$value){
+    sort($value, SORT_STRING);
+}
+unset($value);
+// print_r($raidziuMasyvas); <-----------------------------------------------
+
+echo '<br><h1> KETVIRTAS </h1><br>';
+// Išrūšiuokite trečio uždavinio pirmo lygio masyvą taip, kad elementai kurių masyvai trumpiausi eitų pradžioje.
+
+usort($raidziuMasyvas, function($a, $b){
+    return count($a) <=> count($b);
+});
+
+print_r($raidziuMasyvas);
