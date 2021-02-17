@@ -216,12 +216,50 @@ for($i = 0; $i < 10; $i++){
 // Paskaičiuokite 8 uždavinio masyvo visų reikšmių sumą ir išrūšiuokite masyvą taip, kad pirmiausiai eitų mažiausios masyvo reikšmės arba jeigu reikšmė yra masyvas, to masyvo reikšmių sumos.
 
 echo '<br><h1> . . .deVynTaS . . . </h1><br>';
-
-foreach($masyvas as $key => $antroLygioMasyvas){
-    if (is_array($antroLygioMasyvas)){
-        foreach ($antroLygioMasyvas as $key2 => $value){
-            
-        }
-
+$sumaSumele = 0;
+foreach($masyvas as $key => &$antroLygioKazkas){
+    if (is_array($antroLygioKazkas)){
+        foreach ($antroLygioKazkas as $key2 => &$value){
+            $sumaSumele+= $value;
+        } 
+    } else {
+        $sumaSumele+=$antroLygioKazkas;
     }
 }
+echo 'suma yra:' . $sumaSumele;
+
+usort($masyvas, function($a, $b){
+    if(is_array($a)){
+        if(is_array($b)){
+            return array_sum($a) <=> array_sum($b);
+        } else { 
+            return array_sum($a) <=> $b;
+        }  
+    } else {
+        if(is_array($b)){
+            return $a <=> array_sum($b);
+        } else { 
+            return $a <=> $b;
+        }
+    }
+});
+
+// print_r($masyvas); <------------------------------------------------
+
+// suprastintas, PATAISYTI , NES NEVEIKIA :)
+// usort($masyvas, function($a, $b){
+//     is_array($a) ? (is_array($b) ? (array_sum($a) <=> array_sum($b)) : (array_sum($a) <=> $b)) : (is_array($b) ? ($a <=> array_sum($b)) :  ($a <=> $b));          
+// });
+// print_r($masyvas);
+
+
+// Sukurkite masyvą iš 10 elementų. Jo reikšmės masyvai iš 10 elementų. Antro lygio masyvų reikšmės masyvai su dviem elementais value ir color. Reikšmė value vienas iš atsitiktinai parinktų simbolių: #%+*@裡, o reikšmė color atsitiktinai sugeneruota spalva formatu: #XXXXXX. Pasinaudoję masyvų atspausdinkite “kvadratą” kurį sudarytų masyvo reikšmės nuspalvintos spalva color.
+
+$galimiSimboliai = ['#', '%', '+', '*', '@', '裡'];
+
+for($i = 0; $i < 10; $i++){
+    $randomSimbolis = $galimiSimboliai[rand(0, 5)];
+    $spalvuMasyvas[$i] = [$randomSimbolis => '#' . dechex(rand(0x000000, 0xFFFFFF))]; /////???
+}
+
+print_r($spalvuMasyvas);
