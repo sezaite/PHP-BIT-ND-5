@@ -268,6 +268,7 @@ print_r($spalvuMasyvas);
 echo '</pre>';
 echo "<div style = 'width: 400px; height: 400px'>";
 for($i = 0; $i < 10; $i++){
+    shuffle($spalvuMasyvas);
     echo "<div style='width: 100%; display: inline-block;'>";
     foreach($spalvuMasyvas as &$spalvos){
         echo "<div style='padding-right: 9px; float: left; color: $spalvos[1]'> $spalvos[0]</div>";
